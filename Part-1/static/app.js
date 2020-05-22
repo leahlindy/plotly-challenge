@@ -1,5 +1,7 @@
 
 function optionChanged() {
+  var selectID = d3.select("selDataset").node.value();
+  console.log(selectID);
   d3.json("../data/samples.json").then((importedData) => {
     console.log(importedData);
     // Declare variables for objects in imported data
