@@ -75,6 +75,12 @@
 // form = d3.selectAll("#selDataset"); // define the form (ID selection)
 // form.on("change", getData); // event triggers get Data event handler
 
+// create the event handler for when id is selected ("change event")
+function optionChanged(id) {
+  updatePlotly(id);
+  getData(id);
+}
+
 // create the function for the initial data rendering
 function init() {
   // select dropdown menu 
@@ -98,5 +104,5 @@ function init() {
       getData(data.names[0]);
   });
 }
-
+// call init function to get initial rendering when page loads
 init();
