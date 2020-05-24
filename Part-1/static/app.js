@@ -91,15 +91,15 @@ function getDemoData(id) {
           console.log(metadata)
   
         // filter meta data info by id
-         var result = metadata.filter(meta => meta.id.toString() === id)[0];
+         var searchID = metadata.filter(meta => meta.id.toString() === id)[0];
         // select demographic panel to put data
          var demographicInfo = d3.select("#sample-metadata");
           
-       // empty the demographic info panel each time before getting new id info
+       // empty this field to allow for new data with each event change
          demographicInfo.html("");
   
-       // grab the necessary demographic data data for the id and append the info to the panel
-          Object.entries(result).forEach((key) => {   
+       // append data from specific searchID to the html (all key values in search ID object)
+          Object.entries(searchID).forEach((key) => {   
               demographicInfo.append("h5").text(key[0].toUpperCase() + ": " + key[1] + "\n");    
           });
       });
