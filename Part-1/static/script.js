@@ -1,31 +1,107 @@
-// code for number of test subject in form selection
-// d3.json("data/samples.json").then((importedData) => {
+function getPlots(id) {
+    //Read samples.json
+        d3.json("data/samples.json").then (data =>{
+            console.log(data)
+            var samples = data.samples;
+            
+            var ids = samples[0].otu_ids;
+            console.log(ids)
+            
+            var sampleValues =  samples[0].sample_values.slice(0,10).reverse();
+            console.log(sampleValues)
+            
+            var labels =  samples[0].otu_labels.slice(0,10);
+            console.log (labels)
+            
+        // need only top 10 (slice(0,10)) otu in reversed order 
+            var OTU_top = (samples[0].otu_ids.slice(0, 10)).reverse();
+        
+         // get otu ID based on the top 10 OTU (return OTU #)
+            var OTU_id = OTU_top.map(d => "OTU " + d);
+            console.log(`OTU IDS: ${OTU_id}`)
+         
+            // get the top 10 labels for the plot
+            var labels =  samples[0].otu_labels.slice(0,10);
+            console.log(`OTU_labels: ${labels}`)
+            var trace1 = {
+                x: sampleValues,
+                y: OTU_id,
+                text: labels,
+                marker: {
+                color: 'lightblue'},
+                type:"bar",
+                orientation: "h",
+            };
+            // create data variable
+            var data1 = [trace1];
     
-//     var data = importedData;
-//     var length = data.names.length;
+            // create layout variable to set plots layout
+            var layout_1 = {
+                title: "Top 10 OTU",
+                yaxis:{
+                    tickmode:"linear",
+                },
+                margin: {
+                    l: 100,
+                    r: 100,
+                    t: 100,
+                    b: 30
+                }
+            };
     
-//     var form = d3.select("#selDataset");
+            // create the bar plot
+        Plotly.newPlot("bar", data1, layout_1);
+            // The bubble chart
+            var trace2 = {
+                x: samples[0].otu_ids,
+                y: samples[0].sample_values,
+                mode: "markers",
+                marker: {
+                    size: samples[0].sample_values,
+                    color: samples[0].otu_ids
+                },
+                text:  samples[0].otu_labels
     
-//     for (i=0;i<length;i++){
-//         form.append("option")
-//         .attr("class","testSubject")
-//         .text(i+1);
-//     }
-// });
-
+            };
     
-
-// function onchange() {
-// 	selectValue = d3.select('select').property('value')
-// 	d3.select('body')
-// 		.append('p')
-// 		.text(selectValue + ' is the last selected option.')
-// };
-// function optionChanged() {
-//     console.log("a button was clicked");
-//     var selectID = d3.select(".selDataset").node().value;
+            // set the layout for the bubble plot
+            var layout_2 = {
+                xaxis:{title: "OTU ID"},
+                height: 600,
+                width: 1000
+            };
     
-//     console.log(selectID);}
-
-// var button = d3.selectAll("selDataset");
-// button.on("click", optionChanged);
+            // creating data variable 
+            var data2 = [trace2];
+    
+        // create the bubble plot
+        Plotly.newPlot("bubble", data2, layout_2); 
+        
+        });
+    }  
+  
+  // create the function to get the necessary demographic data (based on selected id)
+  function getDemoData(id) {
+    // read the json file to get data
+        d3.json("data/samples.json").then((data)=> {
+    
+      // get the metadata info (demographic panel)
+            var metadata = data.metadata;
+    
+            console.log(metadata)
+    
+          // filter meta data info by id
+           var searchID = metadata.filter(meta => meta.id.toString() === id)[0];
+          // select demographic panel to put data
+           var demographicInfo = d3.select("#sample-metadata");
+            
+         // empty this field to allow for new data with each event change
+           demographicInfo.html("");
+    
+         // append data from specific searchID to the html (all key values in search ID object)
+            Object.entries(searchID).forEach((key) => {   
+                demographicInfo.append("h5").text(key[0].toUpperCase() + ": " + key[1] + "\n");    
+            });
+        });
+    }
+ 
