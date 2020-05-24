@@ -4,6 +4,10 @@ function getPlots(id) {
             console.log(data)
             var samples = data.samples;
             
+            // filter sample data id (dynamic plot)
+            var searchID = samples.filter(sample => sample.id.toString() === id)[0];
+            console.log(searchID);
+            
             var ids = samples[0].otu_ids;
             console.log(ids)
             
