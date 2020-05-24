@@ -108,8 +108,8 @@ function getDemoData(id) {
 
 // create the event handler for when id is selected ("change event")
 function optionChanged(id) {
-  updatePlotly(id);
-  getData(id);
+  getPlots(id);
+  getDemoData(id);
 }
 
 // create the function for the initial data rendering
@@ -132,7 +132,7 @@ function init() {
 
       // call the functions to display the data and the plots to the page
       //updatePlotly(data.names[0]);
-      getData(data.names[0]);
+      getDemoData(data.names[0]);
       getPlots(data.names[0]);
   });
 }
