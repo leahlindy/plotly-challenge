@@ -11,7 +11,7 @@
 //     var names = importedData.names;
 //     var metadata = importedData.metadata;
 //     var samples = importedData.samples;
-
+    
 //     // sample ids (153)-- of each 153 need to sort top 10 otu_id within each
 //     // create empty list to hold variables 
 //     labels=[];
@@ -33,8 +33,6 @@
 //     console.log(labels);
 //     console.log(hovers);
 
-
-    
 
 //     var trace1 = {
 //         x: values,
@@ -62,16 +60,43 @@
 
 // optionChanged();
 
-function getData() {
-  var dropdownMenu = d3.select("#selDataset"); //the id of dropdown
-  var dataset = dropdownMenu.property("value"); // value to the menu options
-  var data =[]; //empty array for countrys data (each option):
-  console.log(dataset);
-  //updatePlotly(data); // now update the call function given the data selected
-  }
+// // function to get necessary data based on id selected
+// function getData(id) {
+//   var dropdownMenu = d3.select("#selDataset"); //the id of dropdown
+//   var dataset = dropdownMenu.property("value"); // value to the menu options
+//   var data =[]; //empty array for countrys data (each option):
+//   console.log(dataset);
 
-
-form = d3.selectAll("#selDataset"); // define the form (ID selection)
-// event triggers get Data event handler
-form.on("change", getData);
+//   // use case to define which data will be used for updatePlotly (153 ids)
   
+//   //updatePlotly(data); // now update the call function given the data selected
+//   }
+
+// form = d3.selectAll("#selDataset"); // define the form (ID selection)
+// form.on("change", getData); // event triggers get Data event handler
+
+// create the function for the initial data rendering
+function init() {
+  // select dropdown menu 
+  var dropdown = d3.select("#selDataset");
+
+  // read the data 
+  d3.json("data/samples.json").then((data)=> {
+      console.log(data)
+
+      // get the id data to the dropdwown menu
+      data.names.forEach(function(name) {
+          dropdown
+          .append("option")
+          .attr("class","testSubject")
+          .text(name)
+          .property("value");
+      });
+
+      // call the functions to display the data and the plots to the page
+      //updatePlotly(data.names[0]);
+      getData(data.names[0]);
+  });
+}
+
+init();
