@@ -1,36 +1,36 @@
 function getPlots(id) {
     //Read samples.json
         d3.json("data/samples.json").then (data =>{
-            console.log(data)
+            //console.log(data)
             var samples = data.samples;
             
             var id = d3.select("#selDataset")
                     .property("value");
-            console.log(id);
+            //console.log(id);
             
             // filter sample data id (dynamic plot)
             var searchID = samples.filter(sample => sample.id.toString() === id)[0];
-            console.log(searchID);
+            //console.log(searchID);
             
             var ids = searchID.otu_ids;
-            console.log(ids);
+            //console.log(ids);
 
             var sampleValues =  searchID.sample_values.slice(0,10).reverse();
-            console.log(sampleValues);
+            //console.log(sampleValues);
             
             var labels =  searchID.otu_labels.slice(0,10);
-            console.log (labels);
+            //console.log (labels);
             
         // need only top 10 (slice(0,10)) otu in reversed order 
             var OTU_top = (searchID.otu_ids.slice(0, 10)).reverse();
         
          // get otu ID based on the top 10 OTU (return OTU #)
             var OTU_id = OTU_top.map(d => "OTU " + d);
-            console.log(`OTU IDS: ${OTU_id}`)
+            //console.log(`OTU IDS: ${OTU_id}`)
          
             // get the top 10 labels for the plot
             var labels =  samples[0].otu_labels.slice(0,10);
-            console.log(`OTU_labels: ${labels}`)
+            //console.log(`OTU_labels: ${labels}`)
             var trace1 = {
                 x: sampleValues,
                 y: OTU_id,
@@ -45,7 +45,7 @@ function getPlots(id) {
     
             // create layout variable to set plots layout
             var layout_1 = {
-                title: "Top 10 OTU",
+                title: `Top 10 OTU (${searchID.id})`,
                 yaxis:{
                     tickmode:"linear",
                 },
@@ -99,7 +99,7 @@ function getPlots(id) {
       // get the metadata info (demographic panel)
             var metadata = data.metadata;
     
-            console.log(metadata)
+            //console.log(metadata)
     
           // filter meta data info by id
            var searchID = metadata.filter(meta => meta.id.toString() === id)[0];
