@@ -61,14 +61,14 @@ function getPlots(id) {
         Plotly.newPlot("bar", data1, layout_1);
             // The bubble chart
             var trace2 = {
-                x: samples[0].otu_ids,
-                y: samples[0].sample_values,
+                x: ids,
+                y: searchID.sample_values,
                 mode: "markers",
                 marker: {
-                    size: samples[0].sample_values,
-                    color: samples[0].otu_ids
+                    size: searchID.sample_values,
+                    color: ids
                 },
-                text:  samples[0].otu_labels
+                text: labels
     
             };
     
