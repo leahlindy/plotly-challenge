@@ -4,21 +4,25 @@ function getPlots(id) {
             console.log(data)
             var samples = data.samples;
             
+            var id = d3.select("#selDataset")
+                    .property("value");
+            console.log(id);
+            
             // filter sample data id (dynamic plot)
             var searchID = samples.filter(sample => sample.id.toString() === id)[0];
             console.log(searchID);
             
-            var ids = samples[0].otu_ids;
-            console.log(ids)
+            var ids = searchID.otu_ids;
+            console.log(ids);
+
+            var sampleValues =  searchID.sample_values.slice(0,10).reverse();
+            console.log(sampleValues);
             
-            var sampleValues =  samples[0].sample_values.slice(0,10).reverse();
-            console.log(sampleValues)
-            
-            var labels =  samples[0].otu_labels.slice(0,10);
-            console.log (labels)
+            var labels =  searchID.otu_labels.slice(0,10);
+            console.log (labels);
             
         // need only top 10 (slice(0,10)) otu in reversed order 
-            var OTU_top = (samples[0].otu_ids.slice(0, 10)).reverse();
+            var OTU_top = (searchID.otu_ids.slice(0, 10)).reverse();
         
          // get otu ID based on the top 10 OTU (return OTU #)
             var OTU_id = OTU_top.map(d => "OTU " + d);
