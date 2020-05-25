@@ -58,8 +58,9 @@ function getPlots(id) {
             };
     
             // create the bar plot
-        Plotly.newPlot("bar", data1, layout_1);
-            // The bubble chart
+            Plotly.newPlot("bar", data1, layout_1);
+            
+        // The bubble chart
             var trace2 = {
                 x: ids,
                 y: searchID.sample_values,
@@ -71,10 +72,12 @@ function getPlots(id) {
                 text: labels
     
             };
-    
+            
             // set the layout for the bubble plot
             var layout_2 = {
+                title: `OTU Population in Individual ${searchID.id}`,
                 xaxis:{title: "OTU ID"},
+                yaxis: {title: "Sample Values"},
                 height: 600,
                 width: 1000
             };
