@@ -11,7 +11,7 @@ function init() {
   
     // read the data 
     d3.json("data/samples.json").then((data)=> {
-        console.log(data)
+        //console.log(data)
   
         // get the id data to the dropdwown menu
         data.names.forEach(function(name) {
@@ -28,6 +28,6 @@ function init() {
         getPlots(data.names[0]);
     });
   }
-  
+
  // call init function to get initial rendering when page loads
  init();
