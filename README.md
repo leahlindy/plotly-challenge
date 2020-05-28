@@ -7,4 +7,6 @@ The dataset reveals that a small handful of microbial species (also called opera
 
 - d3 Library
 - Javascript
+- plotly
+
 View final plots [here](https://leahlindy.github.io/plotly-challenge/Part-1/)
